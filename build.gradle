@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'gs-spring-boot'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile 'org.springframework.security.extensions:spring-security-saml2-core:1.0.3.RELEASE'
+    compile 'org.springframework.security.extensions:spring-security-saml-dsl-core:1.0.5.RELEASE'
+    testCompile("junit:junit")
+}
+
+configurations {
+    all*.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    all*.exclude group: "ch.qos.logback", module: "logback-classic"
+    all*.exclude module: "commons-logging"
+}
